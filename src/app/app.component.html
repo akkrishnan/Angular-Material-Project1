@@ -1,4 +1,144 @@
+<mat-toolbar color="primary">
+  <span class="fill-remaining-space">Data Request Form</span>
+</mat-toolbar>
+<div class="app-form-container" *ngIf="!post; else forminfo" novalidate>
 
-<p>
-  Start editing to see some magic happen :)
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" class="form">
+
+  <p>
+    <mat-form-field class="form-element">
+      <mat-label>Project Name</mat-label>
+      <input autocomplete="off" matInput placeholder="Enter the Project Name" value="System of Insights">
+    </mat-form-field>
   </p>
+
+  <p>
+    <mat-form-field class="form-element">
+      <mat-label>Data Request From</mat-label>
+      <input matInput formControlName="dataRequestText" autocomplete="off" placeholder="Data Request From" required>
+      <mat-error *ngIf="formGroup.controls['dataRequestText'].invalid">{{getTextErrorMessage()}}</mat-error>
+    </mat-form-field>
+  </p>
+
+  <p>
+    <mat-form-field>
+      <mat-label>Data Request Type</mat-label>
+      <mat-select formControlName="requestTypeControl" required>
+        <mat-option>Select</mat-option>
+        <mat-option *ngFor="let requestType of requestTypesList" [value]="requestType">{{requestType.name}}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="formGroup.controls['requestTypeControl'].hasError('required')">Please select data request type</mat-error>
+      <!-- <mat-hint>{{requestTypeControl.value?.id}}</mat-hint> -->
+    </mat-form-field>
+  </p>
+
+  <p>
+    <mat-form-field>
+      <mat-label>Source Data Format Type</mat-label>
+      <mat-select formControlName="sourceDataFormatControl" required>
+        <mat-option>Select</mat-option>
+        <mat-option *ngFor="let dataFormat of dataFormatList" [value]="dataFormat">{{dataFormat.name}}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="formGroup.controls['sourceDataFormatControl'].hasError('required')">Please select source data format</mat-error>
+      <!-- <mat-hint>{{requestTypeControl.value?.id}}</mat-hint> -->
+    </mat-form-field>
+    &nbsp;&nbsp;
+    <mat-form-field>
+      <mat-label>Destination Data Format Type</mat-label>
+      <mat-select formControlName="destDataFormatControl" required>
+        <mat-option>Select</mat-option>
+        <mat-option *ngFor="let dataFormat of dataFormatList" [value]="dataFormat">{{dataFormat.name}}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="formGroup.controls['destDataFormatControl'].hasError('required')">Please select destination data format</mat-error>
+      <!-- <mat-hint>{{requestTypeControl.value?.id}}</mat-hint> -->
+    </mat-form-field>
+  </p>
+
+
+  <p>
+    <mat-form-field>
+      <mat-label>Source path</mat-label>
+      <input autocomplete="off" matInput placeholder="Enter the Source path" value="https://" formControlName="sourcePath">
+    </mat-form-field>
+    &nbsp; &nbsp;
+    <mat-form-field>
+      <mat-label>Destination path</mat-label>
+      <input autocomplete="off" matInput placeholder="Enter the Destination path" value="https://" formControlName="destinationPath">
+    </mat-form-field>
+  </p>
+
+
+  <p>
+    <mat-form-field>
+      <mat-label>Description</mat-label>
+      <textarea matInput placeholder="Description" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+        cdkAutosizeMinRows="3" cdkAutosizeMaxRows="10" formControlName="description"></textarea>
+    </mat-form-field>
+  </p>
+
+  <p>
+    <button mat-raised-button color="primary" matTooltip="Submit the data request form">Submit</button>
+    &nbsp; &nbsp;
+    <button mat-raised-button matTooltip="Cancel and Discard changes">Cancel</button>
+  </p>
+
+
+  </form>
+</div>
+
+<ng-template #forminfo>
+  <div class="container">
+    {{ post | json }}
+  </div>
+</ng-template>
+
+<!-- Legacy form field -->
+<!-- <p>
+  <mat-form-field appearance="legacy">
+    <mat-label>Email Address:</mat-label>
+    <input matInput placeholder="Your email">
+    <mat-icon matSuffix>mail_outline</mat-icon>
+    <mat-hint>Input the fully qualified email address</mat-hint>
+  </mat-form-field>
+</p> -->
+<!-- Standard form field -->
+<!-- <p>
+  <mat-form-field appearance="standard">
+    <mat-label>Phone Number:</mat-label>
+    <input matInput placeholder="Your Phone">
+    <mat-icon matSuffix>phone</mat-icon>
+    <mat-hint>Phone number with Country code</mat-hint>
+  </mat-form-field>
+</p> -->
+<!-- Fill form field -->
+<!-- <p>
+  <mat-form-field appearance="fill">
+    <mat-label>Username</mat-label>
+    <input matInput placeholder="Your username">
+    <mat-icon matSuffix>person_outline</mat-icon>
+    <mat-hint>Use unique username</mat-hint>
+  </mat-form-field>
+</p> -->
+<!-- Outline form field -->
+<!-- <p>
+  <mat-form-field appearance="outline">
+    <mat-label>Password</mat-label>
+    <input type="password" matInput placeholder="Your password">
+    <mat-icon matSuffix>lock</mat-icon>
+    <mat-hint>Min 8 char 1 number and 1 alpha</mat-hint>
+  </mat-form-field>
+</p> -->
+
+<!-- <p>
+  <mat-form-field>
+    <textarea matInput placeholder="Comments"></textarea>
+  </mat-form-field>
+</p> -->
+<!-- <p>
+  <mat-form-field appearance="fill">
+    <mat-label>Date Time Local</mat-label>
+    <input type="datetime-local" matInput placeholder="Date Time Local" size="10">
+    <mat-icon matSuffix>person_outline</mat-icon>
+    <mat-hint>Local Date Time</mat-hint>
+  </mat-form-field>
+</p> -->
