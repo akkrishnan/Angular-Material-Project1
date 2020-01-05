@@ -1,3 +1,3 @@
 # Krish-ng-material Project1
 
-[Edit on StackBlitz ⚡️](https://stackblitz.com/edit/angular-apdeqs)
+[Edit on StackBlitz ⚡️](https://stackblitz.com/edit/krish-ng-mat-proj1)
